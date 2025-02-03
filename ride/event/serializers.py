@@ -20,6 +20,7 @@ class RideSerializer(serializers.ModelSerializer):
                 'status': obj.status,
                 'id_rider': obj.id_rider.first_name + " " + obj.id_rider.last_name,
                 'id_driver': obj.id_driver.first_name + " " + obj.id_driver.last_name,
+                'rider_email': obj.id_rider.email,
                 'pickup_latitude': obj.pickup_latitude,
                 'pickup_longitude': obj.pickup_longitude,
                 'dropoff_latitude': obj.dropoff_latitude,

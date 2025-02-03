@@ -7,6 +7,7 @@ from .serializers import UserSerializer
 from .serializers import RideSerializer
 from .serializers import RideEventSerializer
 from ride.pagination import ResultsSetPagination
+from .filters import RideFilter
 
 class UserViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, 
                   mixins.UpdateModelMixin, mixins.DestroyModelMixin, 
@@ -20,6 +21,7 @@ class RideViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
     queryset = Ride.objects.all()
     serializer_class = RideSerializer
     pagination_class = ResultsSetPagination
+    filterset_class = RideFilter
 
 class RideEventViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, 
                   mixins.UpdateModelMixin, mixins.DestroyModelMixin, 
