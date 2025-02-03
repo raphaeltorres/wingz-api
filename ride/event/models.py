@@ -5,6 +5,7 @@ class User(models.Model):
         ADMIN = 'admin', 'Admin'
         USER = 'user', 'User'
         RIDER = 'rider', 'Rider'
+        DRIVER = 'driver', 'Driver'
     
     id_user = models.AutoField(primary_key=True)  # Auto-incrementing integer primary key
     role = models.CharField(
