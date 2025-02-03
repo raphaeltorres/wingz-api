@@ -44,13 +44,19 @@ class Ride(models.Model):
     pickup_time = models.DateTimeField()
 
     def __str__(self):
-        return f"Ride {self.id_ride} - {self.status}"
+        return f"{self.id_rider.first_name} - {self.status}"
     
 class RideEvent(models.Model):
     id_ride_event = models.AutoField(primary_key=True)
     id_ride = models.ForeignKey('Ride', on_delete=models.CASCADE, related_name='events')
     description = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['id_ride']),
+            models.Index(fields=['created_at']),
+        ]
 
     def __str__(self):
         return f"Event {self.id_ride_event} - Ride {self.id_ride.id_ride}"
