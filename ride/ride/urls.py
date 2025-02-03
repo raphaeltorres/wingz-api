@@ -27,4 +27,5 @@ router.register(r'ride-event', RideEventViewSet, 'ride-event')
 # Include the router's URLs
 urlpatterns = [
     path('api/', include(router.urls)),
+    path("api/auth/", include("rest_framework.urls"))
 ]

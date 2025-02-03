@@ -3,7 +3,6 @@ from django.db import models
 class User(models.Model):
     class RoleChoices(models.TextChoices):
         ADMIN = 'admin', 'Admin'
-        USER = 'user', 'User'
         RIDER = 'rider', 'Rider'
         DRIVER = 'driver', 'Driver'
     
@@ -11,7 +10,7 @@ class User(models.Model):
     role = models.CharField(
         max_length=20,
         choices=RoleChoices.choices,
-        default=RoleChoices.USER
+        default=RoleChoices.ADMIN
     )
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)

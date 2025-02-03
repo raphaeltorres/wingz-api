@@ -1,4 +1,5 @@
 from rest_framework import mixins, viewsets, generics, filters
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from django_filters import rest_framework as django_filters
 from django.utils.timezone import now, timedelta
 from django.db.models import Prefetch
@@ -17,6 +18,7 @@ class UserViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
 class RideViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, 
                   mixins.UpdateModelMixin, mixins.DestroyModelMixin, 
@@ -31,6 +33,7 @@ class RideViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
     pagination_class = ResultsSetPagination
     filterset_class = RideFilter
     filter_backends = (django_filters.DjangoFilterBackend, filters.OrderingFilter)
+    permission_classes = [IsAuthenticated, IsAdminUser]
     ordering_fields = ['pickup_time']
     ordering = ['pickup_time']
 
@@ -58,3 +61,4 @@ class RideEventViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
     """
     queryset = RideEvent.objects.all()
     serializer_class = RideEventSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
