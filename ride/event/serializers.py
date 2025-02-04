@@ -23,9 +23,13 @@ class RideSerializer(serializers.ModelSerializer):
     Includes nested UserSerializer for driver and rider details,
     and a method field for retrieving current ride events.
     """
-    id_driver = UserSerializer(read_only=True)
-    id_rider = UserSerializer(read_only=True)
-    current_ride_events = serializers.SerializerMethodField()
+    id_rider = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.filter(role="rider")  
+    )
+    id_driver = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.filter(role="driver")
+    )
+    current_ride_events = RideEventSerializer(many=True, read_only=True)
     
     class Meta:
         model = Ride
@@ -35,6 +39,16 @@ class RideSerializer(serializers.ModelSerializer):
             'dropoff_latitude', 'dropoff_longitude', 'pickup_time',
             'current_ride_events'
         ]
+
+    def validate_id_driver(self, value):
+        if value.role != "driver":
+            raise serializers.ValidationError("Selected user is not a driver.")
+        return value
+    
+    def validate_id_rider(self, value):
+        if value.role != "rider":
+            raise serializers.ValidationError("Selected user is not a rider.")
+        return value
     
     def get_current_ride_events(self, obj):
         """

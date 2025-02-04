@@ -28,4 +28,5 @@ http://localhost:8000/api/ride-event/
 
 # Sample Filters
 GET /api/rides/?status=pickup
+
 GET /api/rides/?status=en-route&rider_email=test@gmail.com
